@@ -14,7 +14,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ href, children, className = '', ...
   const pathname = usePathname()
   const isActive = pathname === href
   return (
-    <Link href={href} className={`rounded-md px-4 py-2 text-white ${isActive ? 'bg-black' : 'hover:bg-gray-900'} ${className}`} {...props}>
+    <Link href={href} className={`block rounded-md px-4 py-2 text-white ${isActive ? 'bg-black' : 'hover:bg-gray-900'} ${className}`} {...props}>
       {children}
     </Link>
   )
