@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { usePathname } from 'next/navigation'
 
 interface MenuItemProps {
   href: string
@@ -9,16 +10,11 @@ interface MenuItemProps {
   [x: string]: any
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ href, children, id, className = '', ...props }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ href, children, className = '', ...props }) => {
+  const pathname = usePathname()
+  const isActive = pathname === href
   return (
-    <Link
-      href={href}
-      className={`text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 p-2 text-sm ${className}`}
-      role="menuitem"
-      tabIndex={-1}
-      id={id}
-      {...props}
-    >
+    <Link href={href} className={`rounded-md px-4 py-2 text-white ${isActive ? 'bg-black' : 'hover:bg-gray-900'} ${className}`} {...props}>
       {children}
     </Link>
   )
