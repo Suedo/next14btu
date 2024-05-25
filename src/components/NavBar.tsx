@@ -54,7 +54,7 @@ const Navbar = () => {
                   </Button>
                   {/* Profile dropdown */}
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
+                    <div className="absolute right-0 mt-2 w-48 rounded-md bg-blue-400 py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                       <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
                         <MenuItem href="/profile" className=" px-4 py-2 text-gray-700 hover:bg-gray-100">
                           Your Profile
