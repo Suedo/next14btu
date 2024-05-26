@@ -17,8 +17,29 @@ h2 {
 
 .odd {
     color: green;
+    /* combination of width, style, color.. can be set individually as well */
+    border: 2px outset green;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .even {
     color: chocolate;
+}
+
+.spanblock {
+    background: linear-gradient(to right, yellow, brown);
+}
+
+#spacing{
+    margin-top: 5rem;
+    padding-top: 5rem;
+    text-align: right;
+    border-top-style: dotted;
+    border-top-color: hotpink;
+}
+
+#spacing span{
+    display: block;
+    font-style: italic;
 }

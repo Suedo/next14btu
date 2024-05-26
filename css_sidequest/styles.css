@@ -2,3 +2,12 @@ p {
     color: teal;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+body {
+    /* to: top, left, right */
+    background: linear-gradient(to right, rgb(120, 228, 247), rgb(212, 253, 98));
+    /* by default, repeats the gradient after the last element, this prevents it */
+    background-repeat: no-repeat;
+    /* but stopping repeat leaves lower portion without gradient, this stretches it to the whole page */
+    background-attachment: fixed;
+}
