@@ -1,0 +1,45 @@
+body {
+  background-color: bisque;
+  font-size: 20px;
+}
+
+a {
+  padding: 2rem;
+  display: block;
+  color: blueviolet;
+  /* no underlines */
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(0, 255, 55);
+}
+
+a::before {
+  padding: 10px;
+  margin: 5px;
+  content: 'before';
+  background-color: skyblue;
+  color: chocolate;
+}
+
+a::after {
+  padding: 10px;
+  margin: 5px;
+  content: 'after';
+  background-color: cornflowerblue;
+  color: red;
+}
+
+button {
+  height: 50px;
+  width: 80px;
+}
+
+button:active {
+  background-color: yellowgreen;
+}
+
+button:hover {
+  color: tomato;
+}
