@@ -1,0 +1,81 @@
+/* BASE STYLES */
+:root {
+  --clr-dark: #0f172a;
+  --clr-light: #f1f5f9;
+  --clr-accent: #e11d48;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin-top: 4rem;
+  padding: 0;
+  line-height: 1.6;
+  word-spacing: 1.4px;
+  font-family: 'Roboto', sans-serif;
+  color: var(--clr-dark);
+  background-color: var(--clr-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 80%;
+  height: 750px;
+  margin: 0 auto;
+  border: 5px solid var(--clr-dark);
+}
+
+.item {
+  width: 75px;
+  height: 75px;
+  background-color: #fb7185;
+  padding: 1em;
+  font-weight: 300;
+  color: var(--clr-light);
+  text-align: center;
+  border: 5px solid var(--clr-accent);
+  border-radius: 10px;
+}
+
+/* END OF BASE STYLES */
+
+/* styles on the container */
+.container {
+  /* positions based on main axis: row-wise, ie, left to right */
+  display: flex;
+
+  /* switches the main axis: row:: left>right, column:: top>bottom */
+  /* default value : row */
+  /* flex-direction: column; */
+
+  /* align on the main axis, default: flex-start */
+  /* justify-content: flex-end; */
+  /* justify-content: center; */
+  /* justify-content: x axis, align-items: y axis. if both `center`> total centering */
+  justify-content: right;
+  align-items: flex-start;
+  /* ^^ doesnt do much when align-content is on */
+
+  /* if too many items, instead of squishing together, move to next line */
+  /* in a way, this makes flexbox 2D :) */
+  /* flex-wrap: wrap; */
+  /* available when wrap on, cross axis based alignment, similar to what justify-content does on main axis */
+  /* align-content: end; */
+}
+
+/* styles on the items/children inside the container */
+
+.item-1 {
+  /* uses up the free space */
+  /* flex-grow: 1; */
+  /* flex-shrink: 1; */
+  flex: 1;
+  /* flex-basis: 1; */
+}
