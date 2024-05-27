@@ -12,7 +12,8 @@ const mainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en">
       <body>
-        <Navbar />
+        {/* commenting out for now, focusing on cookbook items */}
+        {/* <Navbar /> */}
         <div>{children}</div>
       </body>
     </html>
