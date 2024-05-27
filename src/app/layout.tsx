@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const mainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-orange-200">
         {/* commenting out for now, focusing on cookbook items */}
         {/* <Navbar /> */}
         <div>{children}</div>

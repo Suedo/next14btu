@@ -29,3 +29,5 @@ Success! Project initialization completed. You may now add components.
 ➜  nrxt14btu git:(main) ✗ npx shadcn-ui@latest add form                                                                                                            @21:40:38
 ✔ Done.
 ```
+
+- Custom fields with Next + zod + react-hook-form
