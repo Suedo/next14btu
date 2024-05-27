@@ -51,27 +51,28 @@ const SignupForm = () => {
     // make sure to use shadcn form, not react-hook-form
     <Form {...reactHookForm}>
       {/* we need this html form because that is what powers the onsubmit functionality that's baked into HTML */}
-      <form onSubmit={reactHookForm.handleSubmit(onSubmit)}></form>
-      {/* form.handleSubmit(onsubmit) :: onSubmit in HTML will call the `handleSubmit` method of
+      <form onSubmit={reactHookForm.handleSubmit(onSubmit)}>
+        {/* form.handleSubmit(onsubmit) :: onSubmit in HTML will call the `handleSubmit` method of
         react-hook-form's form, and we are passing the `onSubmit` function to it*
         this does all validation checks and will let us know if any failures*/}
 
-      <SignupFormField name="email" label="email" placeholder="email" inputType="email" formControl={reactHookForm.control} />
-      <SignupFormField
-        name="userName"
-        label="UserName"
-        placeholder="UserName"
-        description="at least 3 characters"
-        formControl={reactHookForm.control}
-      />
-      <SignupFormField name="password" label="Password" placeholder="Password" inputType="password" formControl={reactHookForm.control} />
+        <SignupFormField name="email" label="email" placeholder="email" inputType="email" formControl={reactHookForm.control} />
+        <SignupFormField
+          name="userName"
+          label="UserName"
+          placeholder="UserName"
+          description="at least 3 characters"
+          formControl={reactHookForm.control}
+        />
+        <SignupFormField name="password" label="Password" placeholder="Password" inputType="password" formControl={reactHookForm.control} />
 
-      <Button type="submit">Signup</Button>
+        <Button type="submit">Signup</Button>
+      </form>
     </Form>
   )
 }
 
-interface SignupFormFieldsProps {
+interface SignupFormFieldProps {
   name: FieldPath<z.infer<typeof formSchema>>
   label: string
   placeholder: string
@@ -79,9 +80,8 @@ interface SignupFormFieldsProps {
   inputType?: string
   formControl: Control<z.infer<typeof formSchema>, any>
 }
-
 // a form is a set of fields, and each field is built with many components
-const SignupFormField: React.FC<SignupFormFieldsProps> = ({ name, label, placeholder, description, inputType, formControl }) => {
+const SignupFormField: React.FC<SignupFormFieldProps> = ({ name, label, placeholder, description, inputType, formControl }) => {
   return (
     <FormField
       control={formControl}
@@ -90,7 +90,7 @@ const SignupFormField: React.FC<SignupFormFieldsProps> = ({ name, label, placeho
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} type={inputType || 'test'} {...field} />
+            <Input placeholder={placeholder} type={inputType || 'text'} {...field} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage /> {/* shows us any validation errors */}
