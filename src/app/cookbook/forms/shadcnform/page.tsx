@@ -35,6 +35,7 @@ const formSchema = z.object({
 })
 
 const SignupForm = () => {
+  // hooks can only be called inside body of a function component
   const reactHookForm = useForm<z.infer<typeof formSchema>>({
     // this guy validates the form
     resolver: zodResolver(formSchema),
@@ -48,22 +49,14 @@ const SignupForm = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => console.log(values)
 
   return (
-    // make sure to use shadcn form, not react-hook-form
+    // make sure to use shadcn Form, not react-hook-form
     <Form {...reactHookForm}>
-      {/* we need this html form because that is what powers the onsubmit functionality that's baked into HTML */}
+      {/* core onsubmit functionality is baked into HTML, so we need the HTML form */}
       <form onSubmit={reactHookForm.handleSubmit(onSubmit)}>
-        {/* form.handleSubmit(onsubmit) :: onSubmit in HTML will call the `handleSubmit` method of
-        react-hook-form's form, and we are passing the `onSubmit` function to it*
-        this does all validation checks and will let us know if any failures*/}
+        {/* call react hook form's handleSubmit, passing our custom `onSubmit` method/behaviour */}
 
         <SignupFormField name="email" label="email" placeholder="email" inputType="email" formControl={reactHookForm.control} />
-        <SignupFormField
-          name="userName"
-          label="UserName"
-          placeholder="UserName"
-          description="at least 3 characters"
-          formControl={reactHookForm.control}
-        />
+        <SignupFormField name="userName" label="UserName" placeholder="UserName" description="min 3 characters" formControl={reactHookForm.control} />
         <SignupFormField name="password" label="Password" placeholder="Password" inputType="password" formControl={reactHookForm.control} />
 
         <Button type="submit">Signup</Button>
