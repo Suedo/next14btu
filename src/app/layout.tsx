@@ -1,5 +1,5 @@
 import React from 'react'
-import '@/assests/styles/globals.css'
+import '@/assets/styles/globals.css'
 import { Metadata } from 'next'
 import Navbar from '@/components/NavBar'
 
