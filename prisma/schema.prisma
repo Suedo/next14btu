@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model DATABASECHANGELOG {
+  ID            String   @db.VarChar(255)
+  AUTHOR        String   @db.VarChar(255)
+  FILENAME      String   @db.VarChar(255)
+  DATEEXECUTED  DateTime @db.DateTime(0)
+  ORDEREXECUTED Int
+  EXECTYPE      String   @db.VarChar(10)
+  MD5SUM        String?  @db.VarChar(35)
+  DESCRIPTION   String?  @db.VarChar(255)
+  COMMENTS      String?  @db.VarChar(255)
+  TAG           String?  @db.VarChar(255)
+  LIQUIBASE     String?  @db.VarChar(20)
+  CONTEXTS      String?  @db.VarChar(255)
+  LABELS        String?  @db.VarChar(255)
+  DEPLOYMENT_ID String?  @db.VarChar(10)
+
+  @@ignore
+}
+
+model DATABASECHANGELOGLOCK {
+  ID          Int       @id
+  LOCKED      Int       @db.TinyInt
+  LOCKGRANTED DateTime? @db.DateTime(0)
+  LOCKEDBY    String?   @db.VarChar(255)
+}
+
+model bank_ref_data {
+  id       Int     @id @default(autoincrement())
+  BankName String? @db.VarChar(100)
+  BICCode  String? @db.VarChar(11)
+  MICRCode String? @db.VarChar(9)
+  Address  String? @db.VarChar(255)
+}
+
+model msg_replay {
+  replay_id          BigInt    @id @default(autoincrement())
+  txn_id             BigInt
+  last_good_event_id BigInt
+  replay_status      String?   @default("pending") @db.VarChar(20)
+  created_at         DateTime? @default(now()) @db.Timestamp(0)
+  updated_at         DateTime? @default(now()) @db.Timestamp(0)
+  tx_master          tx_master @relation(fields: [txn_id], references: [txn_id], onDelete: NoAction, onUpdate: NoAction, map: "msg_replay_ibfk_1")
+  tx_events          tx_events @relation(fields: [last_good_event_id], references: [event_id], onDelete: NoAction, onUpdate: NoAction, map: "msg_replay_ibfk_2")
+
+  @@index([last_good_event_id], map: "idx_last_good_event_id")
+  @@index([txn_id], map: "idx_txn_id")
+}
+
+model payload_revision {
+  revision_id  BigInt    @id @default(autoincrement())
+  txn_id       BigInt
+  version      Int
+  version_data Json
+  status       String?   @default("active") @db.VarChar(20)
+  created_at   DateTime? @default(now()) @db.Timestamp(0)
+  updated_at   DateTime? @default(now()) @db.Timestamp(0)
+  tx_master    tx_master @relation(fields: [txn_id], references: [txn_id], onDelete: NoAction, onUpdate: NoAction, map: "payload_revision_ibfk_1")
+
+  @@index([txn_id], map: "idx_txn_id")
+  @@index([version], map: "idx_version")
+}
+
+model tx_events {
+  event_id           BigInt                   @id @default(autoincrement())
+  txn_id             BigInt
+  event_type         String                   @db.VarChar(50)
+  source_system      String                   @db.VarChar(50)
+  destination_system String                   @db.VarChar(50)
+  flow_direction     tx_events_flow_direction
+  event_data         Json
+  status             String?                  @default("active") @db.VarChar(20)
+  created_at         DateTime?                @default(now()) @db.Timestamp(0)
+  updated_at         DateTime?                @default(now()) @db.Timestamp(0)
+  msg_replay         msg_replay[]
+  tx_master          tx_master                @relation(fields: [txn_id], references: [txn_id], onDelete: NoAction, onUpdate: NoAction, map: "tx_events_ibfk_1")
+
+  @@index([event_type], map: "idx_event_type")
+  @@index([txn_id], map: "idx_txn_id")
+}
+
+model tx_master {
+  txn_id           BigInt             @id @default(autoincrement())
+  txn_type         String             @db.VarChar(50)
+  current_stage    String             @db.VarChar(50)
+  status           String?            @default("active") @db.VarChar(20)
+  created_at       DateTime?          @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?          @default(now()) @db.Timestamp(0)
+  msg_replay       msg_replay[]
+  payload_revision payload_revision[]
+  tx_events        tx_events[]
+
+  @@index([current_stage], map: "idx_current_stage")
+  @@index([txn_type], map: "idx_txn_type")
+}
+
+enum tx_events_flow_direction {
+  inbound
+  outbound
+}
