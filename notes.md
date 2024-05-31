@@ -1,3 +1,29 @@
+## File Colocation in Next.js
+
+In Next14 we are using file based routing,
+so to have a route like `/book/1` give a value we need a few things:
+
+1. a file stucture like: app/book/[id]/page.tsx
+2. the `page.tsx` is mandatory inside a folder structure, without it the route won't be available and show up as 404 not found
+
+## Private folders
+
+We understand how `page.tsx` is needed for a route to show up in UI/browser, however, not all `page.tsx` will show up.
+If the page.tsx is in a private folder, it will not be considered for rendering.
+A private folder starts with a prefix of underscore `_`
+Example: `app/_privateLib/page.tsx`
+
+Here, even though page.tsx exists,this will not result in `app/_privateLib` being a viewable route
+
+**note**: If you want to include an underscore in URL segments, you can prefix the folder name with "%5F," which is the URL-encoded form of an underscore
+
+### Main uses of private folders:
+
+- For separating UI logic from routing logic
+- For consistently organizing internal files across a project (like libraries and utils etc)
+- For sorting and grouping files in code editors
+- And finally, for avoiding potential naming conflicts with future Next.js file conventions
+
 ## getting started with shadcn-ui
 
 - Adding shadcn-ui in our project
