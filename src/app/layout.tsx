@@ -15,9 +15,9 @@ const mainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         {/* commenting out for now, focusing on cookbook items */}
         {/* <Navbar /> */}
         <div className="h-screen flex flex-col place-content-between p-4">
-          <div className="p-4">Header</div>
+          <div className="p-4 bg-amber-100">Header</div>
           <div className="p-4 flex-grow">{children}</div>
-          <div className="p-4">Footer</div>
+          <div className="p-4 bg-amber-100">Footer</div>
         </div>
       </body>
     </html>
